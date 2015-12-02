@@ -50,12 +50,20 @@ module Jekyll
           site.collections[collection_name] = collection
         end
 
+        membership_mapping = [
+          { key: 'person', kind: 'persons', id: 'person_id' },
+          { key: 'area', kind: 'areas', id: 'area_id' },
+          { key: 'legislative_period', kind: 'events', id: 'legislative_period_id' },
+          { key: 'organization', kind: 'organizations', id: 'organization_id' },
+          { key: 'party', kind: 'organizations', id: 'on_behalf_of_id' }
+        ]
         memberships.each do |membership|
-          membership['person'] = site.collections[collection_name_for('persons', prefix)].docs.find { |p| p.data['id'] == membership['person_id'] }
-          membership['area'] = site.collections[collection_name_for('areas', prefix)].docs.find { |a| a.data['id'] == membership['area_id'] }
-          membership['legislative_period'] = site.collections[collection_name_for('events', prefix)].docs.find { |e| e.data['id'] == membership['legislative_period_id'] }
-          membership['organization'] = site.collections[collection_name_for('organizations', prefix)].docs.find { |o| o.data['id'] == membership['organization_id'] }
-          membership['party'] = site.collections[collection_name_for('organizations', prefix)].docs.find { |o| o.data['id'] == membership['on_behalf_of_id'] }
+          membership_mapping.each do |mapping|
+            collection = site.collections[collection_name_for(mapping[:kind], prefix)]
+            membership[mapping[:key]] = collection.docs.find do |doc|
+              doc.data['id'] == membership[mapping[:id]]
+            end
+          end
         end
       end
 

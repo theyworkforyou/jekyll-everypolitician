@@ -58,4 +58,26 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     assert_equal 3, site.collections['assembly_events'].docs.size
     assert_equal 0, site.collections['assembly_areas'].docs.size
   end
+
+  def test_data_is_added_to_each_doc
+    generate_with_single_source
+    person = site.collections['people'].docs.first
+    assert_equal 'Alain FICINI', person['name']
+    assert_equal 'a.ficini@conseil-national.mc', person['email']
+  end
+
+  def test_name_is_copied_to_title
+    generate_with_single_source
+    person = site.collections['people'].docs.first
+    assert_equal person['name'], person['title']
+  end
+
+  def test_memberships_are_copied_to_items
+    generate_with_single_source
+    person = site.collections['people'].docs.first
+    assert_equal 1, person['memberships'].size
+    membership = person['memberships'].first
+    assert_equal person['id'], membership['person_id']
+    assert_equal person, membership['person']
+  end
 end
