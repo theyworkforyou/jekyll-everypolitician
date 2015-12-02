@@ -18,7 +18,7 @@ class Jekyll::EverypoliticianTest < Minitest::Test
 
   def test_it_creates_collections_from_popolo
     generate_with_single_source
-    assert_equal 50, site.collections['persons'].docs.size
+    assert_equal 50, site.collections['people'].docs.size
     assert_equal 16, site.collections['organizations'].docs.size
     assert_equal 3, site.collections['events'].docs.size
     assert_equal 0, site.collections['areas'].docs.size
@@ -26,19 +26,19 @@ class Jekyll::EverypoliticianTest < Minitest::Test
 
   def test_it_uses_default_layout
     generate_with_single_source
-    person = site.collections['persons'].docs.first
+    person = site.collections['people'].docs.first
     assert_nil person.data['layout']
   end
 
   def test_collection_name_layout_used_if_available
-    site.layouts['persons'] = Jekyll::Layout.new(site, 'persons.html', '_layouts')
+    site.layouts['people'] = Jekyll::Layout.new(site, 'people.html', '_layouts')
     generate_with_single_source
-    person = site.collections['persons'].docs.first
-    assert_equal 'persons', person.data['layout']
+    person = site.collections['people'].docs.first
+    assert_equal 'people', person.data['layout']
   end
 
   def test_missing_configuration
     Jekyll::Everypolitician::Generator.new(site.config).generate(site)
-    assert_nil site.collections['persons']
+    assert_nil site.collections['people']
   end
 end
