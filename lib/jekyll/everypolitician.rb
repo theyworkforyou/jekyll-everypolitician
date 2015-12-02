@@ -23,9 +23,11 @@ module Jekyll
             doc.merge_data!(item)
             doc.merge_data!(
               'title' => item['name'],
-              'layout' => collection_name,
               'memberships' => memberships_for(item, collection_name, memberships)
             )
+            if site.layouts.key?(collection_name)
+              doc.merge_data!('layout' => collection_name)
+            end
             collection.docs << doc
           end
           site.collections[collection_name] = collection
