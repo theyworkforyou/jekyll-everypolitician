@@ -16,6 +16,15 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     Jekyll::Everypolitician::Generator.new(site.config).generate(site)
   end
 
+  def generate_with_source_hash
+    site.config['everypolitician'] = {
+      'sources' => {
+        'assembly' => 'test/fixtures/ep-popolo-v1.0.json'
+      }
+    }
+    Jekyll::Everypolitician::Generator.new(site.config).generate(site)
+  end
+
   def test_it_creates_collections_from_popolo
     generate_with_single_source
     assert_equal 50, site.collections['people'].docs.size
@@ -40,5 +49,13 @@ class Jekyll::EverypoliticianTest < Minitest::Test
   def test_missing_configuration
     Jekyll::Everypolitician::Generator.new(site.config).generate(site)
     assert_nil site.collections['people']
+  end
+
+  def test_sources_hash
+    generate_with_source_hash
+    assert_equal 50, site.collections['assembly_people'].docs.size
+    assert_equal 16, site.collections['assembly_organizations'].docs.size
+    assert_equal 3, site.collections['assembly_events'].docs.size
+    assert_equal 0, site.collections['assembly_areas'].docs.size
   end
 end

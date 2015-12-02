@@ -16,11 +16,22 @@ module Jekyll
 
       def generate(site)
         return unless site.config.key?('everypolitician')
-        popolo = JSON.parse(open(site.config['everypolitician']['sources'].first).read)
+        sources = site.config['everypolitician']['sources']
+        if sources.is_a?(Array)
+          generate_collections(site, sources.first)
+        elsif sources.is_a?(Hash)
+          sources.each do |prefix, source|
+            generate_collections(site, source, prefix)
+          end
+        end
+      end
+
+      def generate_collections(site, source, prefix = nil)
+        popolo = JSON.parse(open(source).read)
         memberships = popolo['memberships']
         popolo.keys.each do |type|
           next unless popolo[type].is_a?(Array)
-          collection_name = COLLECTION_MAPPING[type] || type
+          collection_name = collection_name_for(type, prefix)
           collection = Collection.new(site, collection_name)
           popolo[type].each do |item|
             next unless item['id']
@@ -29,7 +40,7 @@ module Jekyll
             doc.merge_data!(item)
             doc.merge_data!(
               'title' => item['name'],
-              'memberships' => memberships_for(item, collection_name, memberships)
+              'memberships' => memberships_for(item, type, memberships)
             )
             if site.layouts.key?(collection_name)
               doc.merge_data!('layout' => collection_name)
@@ -40,22 +51,31 @@ module Jekyll
         end
 
         memberships.each do |membership|
-          membership['person'] = site.collections['people'].docs.find { |p| p.data['id'] == membership['person_id'] }
-          membership['area'] = site.collections['areas'].docs.find { |a| a.data['id'] == membership['area_id'] }
-          membership['legislative_period'] = site.collections['events'].docs.find { |e| e.data['id'] == membership['legislative_period_id'] }
-          membership['organization'] = site.collections['organizations'].docs.find { |o| o.data['id'] == membership['organization_id'] }
-          membership['party'] = site.collections['organizations'].docs.find { |o| o.data['id'] == membership['on_behalf_of_id'] }
+          membership['person'] = site.collections[collection_name_for('persons', prefix)].docs.find { |p| p.data['id'] == membership['person_id'] }
+          membership['area'] = site.collections[collection_name_for('areas', prefix)].docs.find { |a| a.data['id'] == membership['area_id'] }
+          membership['legislative_period'] = site.collections[collection_name_for('events', prefix)].docs.find { |e| e.data['id'] == membership['legislative_period_id'] }
+          membership['organization'] = site.collections[collection_name_for('organizations', prefix)].docs.find { |o| o.data['id'] == membership['organization_id'] }
+          membership['party'] = site.collections[collection_name_for('organizations', prefix)].docs.find { |o| o.data['id'] == membership['on_behalf_of_id'] }
         end
       end
 
-      def memberships_for(item, collection_name, memberships)
+      def collection_name_for(type, prefix = nil)
+        name = COLLECTION_MAPPING[type] || type
+        if prefix
+          [prefix, name].join('_')
+        else
+          name
+        end
+      end
+
+      def memberships_for(item, type, memberships)
         map = {
           'areas' => 'area_id',
-          'people' => 'person_id',
+          'persons' => 'person_id',
           'events' => 'legislative_period_id',
           'organizations' => 'on_behalf_of_id'
         }
-        memberships.find_all { |m| m[map[collection_name]] == item['id'] }
+        memberships.find_all { |m| m[map[type]] == item['id'] }
       end
     end
   end
