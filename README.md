@@ -29,7 +29,32 @@ gems:
 
 ## Usage
 
-TODO: Write usage instructions here
+You need to configure Jekyll so it knows which data to use. In your `_config.yml` add the following to tell jekyll-everypolitician where to get the data from:
+
+```yaml
+everypolitician:
+  sources:
+    - https://github.com/everypolitician/everypolitician-data/raw/master/data/Australia/Representatives/ep-popolo-v1.0.json
+```
+
+This tells it to use the data for the Australian Representatives, and specifies which version of the data to use, in this case `master`.
+
+When sources is an array, as in the example above, the collections that are created are `people`, `organizations`, `areas` and `events`.
+
+Sometimes you'll want more than one source, for example you might want the upper house as well. For this case you can specify sources as a hash:
+
+```yaml
+everypolitician:
+  sources:
+    assembly: https://github.com/everypolitician/everypolitician-data/raw/master/data/Australia/Representatives/ep-popolo-v1.0.json
+    senate: https://github.com/everypolitician/everypolitician-data/raw/master/data/Australia/Senate/ep-popolo-v1.0.json
+```
+
+When `sources` is a hash like this the collections that are created are prefixed with the key of the hash, e.g. `assembly_people`, `senate_people`, `assembly_areas` etc.
+
+### Layouts
+
+This plugin will try and use layouts that are named after the generated collections. So in the examples above if you'd specified `sources` as an array then it would try to use `_layouts/people.html` as the layout for the `people` collection. Similarly if you specify `sources` as a hash then it would try to use something like `_layouts/assembly_people.html` for the `assembly_people` collection.
 
 ## Development
 
