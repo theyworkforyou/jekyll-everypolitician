@@ -4,10 +4,12 @@ Use [EveryPolitician](http://everypolitician.org) data in your Jekyll generated 
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this to your application's Gemfile:
 
 ```ruby
-gem 'jekyll-everypolitician'
+group :jekyll_plugins do
+  gem 'jekyll-everypolitician'
+end
 ```
 
 And then execute:
@@ -17,6 +19,13 @@ And then execute:
 Or install it yourself as:
 
     $ gem install jekyll-everypolitician
+
+And then add the following to `_config.yml`:
+
+```yaml
+gems:
+  - jekyll-everypolitician
+```
 
 ## Usage
 
