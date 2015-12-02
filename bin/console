@@ -6,9 +6,8 @@ require 'jekyll/everypolitician'
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
+SITE = Jekyll::Site.new(Jekyll.configuration)
+SITE.config['everypolitician_url'] = 'test/fixtures/vatican-ep-popolo-v1.0.json'
 
-require 'irb'
-IRB.start
+require 'pry'
+Pry.start
