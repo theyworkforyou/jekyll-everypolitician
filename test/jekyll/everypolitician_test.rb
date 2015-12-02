@@ -36,4 +36,9 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     person = site.collections['persons'].docs.first
     assert_equal 'persons', person.data['layout']
   end
+
+  def test_missing_configuration
+    Jekyll::Everypolitician::Generator.new(site.config).generate(site)
+    assert_nil site.collections['persons']
+  end
 end

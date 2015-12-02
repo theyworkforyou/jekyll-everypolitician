@@ -11,6 +11,7 @@ module Jekyll
   module Everypolitician
     class Generator < Jekyll::Generator
       def generate(site)
+        return unless site.config.key?('everypolitician')
         popolo = JSON.parse(open(site.config['everypolitician']['sources'].first).read)
         memberships = popolo['memberships']
         popolo.keys.each do |collection_name|
