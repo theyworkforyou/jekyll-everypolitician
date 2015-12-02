@@ -52,6 +52,10 @@ everypolitician:
 
 When `sources` is a hash like this the collections that are created are prefixed with the key of the hash, e.g. `assembly_people`, `senate_people`, `assembly_areas` etc.
 
+### Layouts
+
+This plugin will try and use layouts that are named after the generated collections. So in the examples above if you'd specified `sources` as an array then it would try to use `_layouts/people.html` as the layout for the `people` collection. Similarly if you specify `sources` as a hash then it would try to use something like `_layouts/assembly_people.html` for the `assembly_people` collection.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
