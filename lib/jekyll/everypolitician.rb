@@ -46,6 +46,8 @@ module Jekyll
             )
             if site.layouts.key?(collection_name)
               doc.merge_data!('layout' => collection_name)
+            elsif site.layouts.key?(collection_name_for(type))
+              doc.merge_data!('layout' => collection_name_for(type))
             end
             collection.docs << doc
           end

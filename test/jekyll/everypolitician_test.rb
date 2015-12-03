@@ -84,4 +84,11 @@ class Jekyll::EverypoliticianTest < Minitest::Test
   def test_generator_has_high_priority
     assert_equal :high, Jekyll::Everypolitician::Generator.priority
   end
+
+  def test_falls_back_to_collection_name_layout
+    site.layouts['people'] = Jekyll::Layout.new(site, 'people.html', '_layouts')
+    generate_with_source_hash
+    person = site.collections['assembly_people'].docs.first
+    assert_equal 'people', person.data['layout']
+  end
 end
