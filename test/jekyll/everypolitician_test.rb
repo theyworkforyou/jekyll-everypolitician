@@ -80,4 +80,8 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     assert_equal person['id'], membership['person_id']
     assert_equal person, membership['person']
   end
+
+  def test_generator_has_high_priority
+    assert_equal :high, Jekyll::Everypolitician::Generator.priority
+  end
 end
