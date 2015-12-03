@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.4.0] - 2015-12-03
+
+### Changed
+
+- `Jekyll::Everypolitician::Generator` is now `:high` priority. This means it will get run before plugins that don't declare a priority. This should make it easier to make other plugins that depend on the data that `jekyll-everypolitician` adds to the `site` object.
+
 ## [0.3.0] - 2015-12-02
 
 ### Changed
@@ -26,3 +32,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 [0.2.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.1.0...v0.2.0
 [0.3.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.2.0...v0.3.0
+[0.4.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.3.0...v0.4.0
