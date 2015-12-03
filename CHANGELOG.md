@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.5.0] - 2015-12-03
+
+### Added
+
+- If you've specified multiple sources the layout property for each document in the collection will first try to use `sourcename_collectionname.html` then fallback to `collectionname.html`. E.g. if you'd specified a source for `assembly`, objects in the `people` collection would first try to use `assembly_people.html`, then fallback to `people.html`.
+
 ## [0.4.0] - 2015-12-03
 
 ### Changed
@@ -33,3 +39,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.2.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.1.0...v0.2.0
 [0.3.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.2.0...v0.3.0
 [0.4.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.3.0...v0.4.0
+[0.5.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.4.0...v0.5.0
