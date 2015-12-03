@@ -14,6 +14,8 @@ module Jekyll
         'persons' => 'people'
       }
 
+      priority :high
+
       def generate(site)
         return unless site.config.key?('everypolitician')
         sources = site.config['everypolitician']['sources']
