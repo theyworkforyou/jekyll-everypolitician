@@ -1,4 +1,4 @@
-# Jekyll::Everypolitician [![Build Status](https://travis-ci.org/everypolitician/jekyll-everypolitician.svg?branch=master)](https://travis-ci.org/everypolitician/jekyll-everypolitician)
+# Jekyll::Everypolitician [![Build Status](https://travis-ci.org/everypolitician/jekyll-everypolitician.svg?branch=master)](https://travis-ci.org/everypolitician/jekyll-everypolitician) [![Gem Version](https://badge.fury.io/rb/jekyll-everypolitician.svg)](https://badge.fury.io/rb/jekyll-everypolitician)
 
 Use [EveryPolitician](http://everypolitician.org) data in your Jekyll generated site.
 
