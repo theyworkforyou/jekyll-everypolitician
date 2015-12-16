@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.7.0] - 2015-12-16
+
+### Changed
+
+- Switched to using Jekyll 3.0's new hook system. We now add EveryPolitician data using a `:site` `:post_read` hook, which means that collections will be populated before any of the generators get run. This makes it easier to write a generator that does something with the EveryPolitician generated collections.
+
 ## [0.6.0] - 2015-12-03
 
 ### Removed
@@ -47,3 +53,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 [0.4.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.3.0...v0.4.0
 [0.5.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.4.0...v0.5.0
 [0.6.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.5.0...v0.6.0
+[0.7.0]: https://github.com/everypolitician/jekyll-everypolitician/compare/v0.6.0...v0.7.0
