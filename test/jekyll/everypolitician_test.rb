@@ -13,7 +13,7 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     site.config['everypolitician'] = {
       'sources' => ['test/fixtures/ep-popolo-v1.0.json']
     }
-    Jekyll::Everypolitician::Generator.new(site.config).generate(site)
+    Jekyll::Everypolitician::PopoloFetcher.new(site).read!
   end
 
   def generate_with_source_hash
@@ -22,7 +22,7 @@ class Jekyll::EverypoliticianTest < Minitest::Test
         'assembly' => 'test/fixtures/ep-popolo-v1.0.json'
       }
     }
-    Jekyll::Everypolitician::Generator.new(site.config).generate(site)
+    Jekyll::Everypolitician::PopoloFetcher.new(site).read!
   end
 
   def test_it_creates_collections_from_popolo
@@ -47,7 +47,7 @@ class Jekyll::EverypoliticianTest < Minitest::Test
   end
 
   def test_missing_configuration
-    Jekyll::Everypolitician::Generator.new(site.config).generate(site)
+    Jekyll::Everypolitician::PopoloFetcher.new(site).read!
     assert_nil site.collections['people']
   end
 
@@ -79,10 +79,6 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     membership = person['memberships'].first
     assert_equal person['id'], membership['person_id']
     assert_equal person, membership['person']
-  end
-
-  def test_generator_has_high_priority
-    assert_equal :high, Jekyll::Everypolitician::Generator.priority
   end
 
   def test_falls_back_to_collection_name_layout

@@ -7,14 +7,18 @@ require 'jekyll'
 
 module Jekyll
   module Everypolitician
-    class Generator < Jekyll::Generator
+    class PopoloFetcher
       COLLECTION_MAPPING = {
         'persons' => 'people'
       }
 
-      priority :high
+      attr_reader :site
 
-      def generate(site)
+      def initialize(site)
+        @site = site
+      end
+
+      def read!
         return unless site.config.key?('everypolitician')
         sources = site.config['everypolitician']['sources']
         if sources.is_a?(Array)
@@ -89,4 +93,8 @@ module Jekyll
       end
     end
   end
+end
+
+Jekyll::Hooks.register :site, :post_read do |site|
+  Jekyll::Everypolitician::PopoloFetcher.new(site).read!
 end
