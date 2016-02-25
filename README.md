@@ -52,6 +52,29 @@ everypolitician:
 
 When `sources` is a hash like this the collections that are created are prefixed with the key of the hash, e.g. `assembly_people`, `senate_people`, `assembly_areas` etc.
 
+### Outputting collections
+
+Once you've completed the steps above you will be able to access the collections on the `site` object in templates. So for example to show a list of people on a template you might use something like this:
+
+```liquid
+{% for person in site.assembly_people %}
+  <p>{{ person.name }}</p>
+{% endfor %}
+```
+
+If you want to create a separate page for each item in the collection then you'll need to add some extra bits to `_config.yml` to tell Jekyll to output your collection.
+
+```yaml
+collections:
+  assembly_people:
+    output: true
+    permalink: '/assembly/person/:path/'
+```
+
+This tells Jekyll to output a file for each document in the collection. the `:path` part of the permalink will be replaced with the document's `id`.
+
+It's important to remember that this plugin always creates collections from the EveryPolitician datasources. You can find more details about Jekyll's collections in the [official collections documentation](https://jekyllrb.com/docs/collections/).
+
 ### Layouts
 
 This plugin will try and use layouts that are named after the generated collections. So in the examples above if you'd specified `sources` as an array then it would try to use `_layouts/people.html` as the layout for the `people` collection. Similarly if you specify `sources` as a hash then it would try to use something like `_layouts/assembly_people.html` for the `assembly_people` collection.
