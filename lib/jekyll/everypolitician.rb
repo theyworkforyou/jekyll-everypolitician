@@ -22,22 +22,22 @@ module Jekyll
         return unless site.config.key?('everypolitician')
         sources = site.config['everypolitician']['sources']
         if sources.is_a?(Array)
-          generate_collections(site, sources.first)
+          generate_collections(sources.first)
         elsif sources.is_a?(Hash)
           sources.each do |prefix, source|
-            generate_collections(site, source, prefix)
+            generate_collections(source, prefix)
           end
         end
       end
 
-      def generate_collections(site, source, prefix = nil)
+      def generate_collections(source, prefix = nil)
         popolo = JSON.parse(open(source).read)
         memberships = popolo['memberships']
-        popolo.keys.each do |type|
-          next unless popolo[type].is_a?(Array)
+        popolo.each do |type, records|
+          next unless records.is_a?(Array)
           collection_name = collection_name_for(type, prefix)
           collection = Collection.new(site, collection_name)
-          popolo[type].each do |item|
+          records.each do |item|
             next unless item['id']
             path = File.join(site.source, "_#{collection_name}", "#{Jekyll::Utils.slugify(item['id'])}.md")
             doc = Document.new(path, collection: collection, site: site)
