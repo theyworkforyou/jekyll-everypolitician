@@ -1,4 +1,4 @@
-# Jekyll::Everypolitician [![Build Status](https://travis-ci.org/everypolitician/jekyll-everypolitician.svg?branch=master)](https://travis-ci.org/everypolitician/jekyll-everypolitician) [![Gem Version](https://badge.fury.io/rb/jekyll-everypolitician.svg)](https://badge.fury.io/rb/jekyll-everypolitician)
+# Jekyll::Everypolitician [![Build Status](https://travis-ci.org/theyworkforyou/jekyll-everypolitician.svg?branch=master)](https://travis-ci.org/theyworkforyou/jekyll-everypolitician) [![Gem Version](https://badge.fury.io/rb/jekyll-everypolitician.svg)](https://badge.fury.io/rb/jekyll-everypolitician)
 
 Use [EveryPolitician](http://everypolitician.org) data in your Jekyll generated site.
 
@@ -87,7 +87,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/everypolitician/jekyll-everypolitician.
+Bug reports and pull requests are welcome on GitHub at https://github.com/theyworkforyou/jekyll-everypolitician.
 
 
 ## License
