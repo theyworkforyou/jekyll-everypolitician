@@ -61,7 +61,8 @@ module Jekyll
           { key: 'area', kind: 'areas', id: 'area_id' },
           { key: 'legislative_period', kind: 'events', id: 'legislative_period_id' },
           { key: 'organization', kind: 'organizations', id: 'organization_id' },
-          { key: 'party', kind: 'organizations', id: 'on_behalf_of_id' }
+          { key: 'party', kind: 'organizations', id: 'on_behalf_of_id' },
+          { key: 'post', kind: 'posts', id: 'post_id' }
         ]
         memberships.each do |membership|
           membership_mapping.each do |mapping|
@@ -87,7 +88,8 @@ module Jekyll
           'areas' => 'area_id',
           'persons' => 'person_id',
           'events' => 'legislative_period_id',
-          'organizations' => 'on_behalf_of_id'
+          'organizations' => 'on_behalf_of_id',
+          'posts' => 'post_id'
         }
         memberships.find_all { |m| m[map[type]] == item['id'] }
       end

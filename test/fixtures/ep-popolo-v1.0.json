@@ -1522,6 +1522,10 @@
       "organization_id": "legislature",
       "person_id": "fb697241-3d14-4ff6-b9b3-07632411160c",
       "role": "member"
+    },
+    {
+      "person_id": "fb697241-3d14-4ff6-b9b3-07632411160c",
+      "post_id": "woman_representative"
     }
   ],
   "events": [
@@ -1552,5 +1556,11 @@
   ],
   "areas": [
 
+  ],
+  "posts": [
+    {
+      "id": "woman_representative",
+      "label": "Woman Representative"
+    }
   ]
 }
