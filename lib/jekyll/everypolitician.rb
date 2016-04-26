@@ -56,6 +56,7 @@ module Jekyll
           site.collections[collection_name] = collection
         end
 
+        memberships_collection = Collection.new(site, 'memberships')
         membership_mapping = [
           { key: 'person', kind: 'persons', id: 'person_id' },
           { key: 'area', kind: 'areas', id: 'area_id' },
@@ -64,14 +65,19 @@ module Jekyll
           { key: 'party', kind: 'organizations', id: 'on_behalf_of_id' },
           { key: 'post', kind: 'posts', id: 'post_id' }
         ]
-        memberships.each do |membership|
+        memberships.each_with_index do |membership, i|
           membership_mapping.each do |mapping|
             collection = site.collections[collection_name_for(mapping[:kind], prefix)]
             membership[mapping[:key]] = collection.docs.find do |doc|
               doc.data['id'] == membership[mapping[:id]]
             end
           end
+          path = File.join(site.source, '_memberships', "#{i}.md")
+          doc = Document.new(path, collection: memberships_collection, site: site)
+          doc.merge_data!(membership)
+          memberships_collection.docs << doc
         end
+        site.collections['memberships'] = memberships_collection
       end
 
       def collection_name_for(type, prefix = nil)
