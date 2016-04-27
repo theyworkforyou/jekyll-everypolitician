@@ -87,4 +87,13 @@ class Jekyll::EverypoliticianTest < Minitest::Test
     person = site.collections['assembly_people'].docs.first
     assert_equal 'people', person.data['layout']
   end
+
+  def test_creates_posts
+    generate_with_single_source
+    post = site.collections['posts'].docs.first
+    assert_equal 'Woman Representative', post.data['label']
+    membership = post.data['memberships'].first
+    assert_equal post['id'], membership['post_id']
+    assert_equal post, membership['post']
+  end
 end
